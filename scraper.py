@@ -104,7 +104,7 @@ def parse_html(html):
         '##################################################################')
     data = {}
     # Get items_ids which are in database already
-    data_listing_id_from_db = database_async.get_item_ids()
+    data_listing_id_from_db = database.get_item_ids(database.engine)
     logger.debug(
         f'Number of item_ids are already exist in database: {len(data_listing_id_from_db)}')
     for item in items:

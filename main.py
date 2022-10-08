@@ -105,8 +105,8 @@ if __name__ == "__main__":
     # Storing the raw HTML data.
     for html in htmls:
         if html is not None:
-            output_data = scraper_async.parse_html(html)
-            database_async.write_to_db(output_data)
+            output_data = scraper.parse_html(html)
+            database.write_to_db(database.metadata, database.engine, output_data)
         else:
             continue
 
@@ -119,4 +119,4 @@ if __name__ == "__main__":
     else:
         elapsed_time_str = f'| {round(elapsed_time, 1)} sec'
     logger.info(
-        f'Elapsed run time: {elapsed_time_str} seconds | Page_counter: {scraper_async.page_counter} | htmls count: {len(htmls)} | New items: {scraper_async.counter} | feature: {scraper_async.feature_counter} | regular: {scraper_async.regular_counter} | feature + regular: {scraper_async.feature_counter + scraper_async.regular_counter}')
+        f'Elapsed run time: {elapsed_time_str} seconds | Page_counter: {scraper.page_counter} | htmls count: {len(htmls)} | New items: {scraper.counter} | feature: {scraper.feature_counter} | regular: {scraper.regular_counter} | feature + regular: {scraper.feature_counter + scraper.regular_counter}')

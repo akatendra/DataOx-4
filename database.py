@@ -98,7 +98,6 @@ def get_item_ids(engine):
 
 
 def write_to_db(metadata, engine, data):
-    items_list = []
     session = Session(bind=engine)
     # Connect to DB table
     items_table = Table('Items', metadata, autoload=True, autoload_with=engine)

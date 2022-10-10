@@ -327,7 +327,6 @@ def parse_html(html):
         logger.debug('###############################################')
         logger.debug(f'Detected data_listing_id:  {data_listing_id}')
         if data_listing_id in data_listing_id_from_db:
-            if
             logger.debug(
                 f'Detected data_listing_id is already exist in database: {data_listing_id} | Skipped...')
             logger.debug('###############################################')

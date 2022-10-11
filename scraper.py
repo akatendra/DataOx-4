@@ -89,6 +89,25 @@ def convert_date(date):
     return converted_date
 
 
+def parse_pages_count(data):
+    soup = BeautifulSoup(data, 'lxml')
+    # pagination = soup.select_one('div[class="pagination"]')
+    pagination_links = soup.select('div[class="pagination"] a')
+    logger.debug(f'pagination_links: {pagination_links}')
+    page = 1
+    link_page = 1
+    for link in pagination_links:
+        logger.debug(f'link: {link}')
+        link_text = link.text
+        if link_text.isdigit():
+            link_page = int(link_text)
+        logger.debug(f'link_page: {link_page}')
+        if link_page >= page:
+            page = link_page
+    return page
+
+
+
 def get_items(page_number, data):
     page_number = page_number
     soup = BeautifulSoup(data, 'lxml')

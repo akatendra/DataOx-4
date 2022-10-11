@@ -107,7 +107,6 @@ def parse_pages_count(data):
     return page
 
 
-
 def get_items(page_number, data):
     page_number = page_number
     soup = BeautifulSoup(data, 'lxml')
@@ -338,18 +337,29 @@ def parse_html(html):
     items = get_items(page_number, html[1])
     data = {}
     # Get items_ids which are in database already
-    data_listing_id_from_db = database.get_item_ids(database.engine)
+    data_listing_id_from_db, item_data_vip_urls = database.get_item_ids(
+        database.engine)
     logger.debug(
         f'Number of item_ids are already exist in database: {len(data_listing_id_from_db)}')
     for item in items:
         data_listing_id = int(item['data-listing-id'])
         logger.debug('###############################################')
         logger.debug(f'Detected data_listing_id:  {data_listing_id}')
+        # Working with a title.
+        item_a = get_item_a(item)
+        # Getting an item url.
+        item_url = get_item_url(item_a)
         if data_listing_id in data_listing_id_from_db:
-            logger.debug(
-                f'Detected data_listing_id is already exist in database: {data_listing_id} | Skipped...')
-            logger.debug('###############################################')
-            continue
+            item_url_from_db = item_data_vip_urls[data_listing_id]
+            if item_url == item_url_from_db:
+                logger.debug(f'item_url_from_db: {item_url_from_db}')
+                logger.debug(
+                    f'Detected data_listing_id is already exist in database: {data_listing_id} | Skipped...')
+                # logger.debug('###############################################')
+                continue
+            else:
+                logger.debug(
+                    f'ERROR!!! Different items with same id: {data_listing_id}')
         else:
             counter += 1
             logger.debug(f'counter: {counter}')
@@ -358,9 +368,9 @@ def parse_html(html):
             logger.debug('###############################################')
             featured_regular_counter(item)
             # Working with a title.
-            item_a = get_item_a(item)
+            # item_a = get_item_a(item)
             # Getting an item url.
-            item_url = get_item_url(item_a)
+            # item_url = get_item_url(item_a)
             # Getting an item title.
             item_title = get_item_title(item_a)
             # Getting an item image url.

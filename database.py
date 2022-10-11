@@ -90,11 +90,12 @@ def make_engine():
 
 def get_item_ids(engine):
     session = Session(bind=engine)
-    item_ids = session.query(Items.id).all()
+    item_ids = session.query(Items.id, Items.data_vip_url).all()
     item_ids_tuple = set((item[0] for item in item_ids))
+    item_data_vip_urls = {item[0]: item[1] for item in item_ids}
     logger.debug(f'Items_ids tuple received from DB: {len(item_ids_tuple)}')
     session.close()
-    return item_ids_tuple
+    return item_ids_tuple, item_data_vip_urls
 
 
 def write_to_db(metadata, engine, data):

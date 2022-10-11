@@ -151,7 +151,7 @@ if __name__ == "__main__":
 
     # Getting urls
     urls = []
-    for page_number in range(1, max_page):
+    for page_number in range(1, max_page + 1):
         logger.debug(f'Take in work page: {page_number}')
         if page_number == 1:
             page_url = url1 + url2

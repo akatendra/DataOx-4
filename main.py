@@ -182,4 +182,10 @@ if __name__ == "__main__":
         elapsed_time_str = f'| {round(elapsed_time, 1)} sec'
     logger.info(
         f'Elapsed run time: {elapsed_time_str} seconds | Page_counter: {scraper.page_counter} | htmls count: {len(htmls)} | New items: {scraper.counter} | feature: {scraper.feature_counter} | regular: {scraper.regular_counter} | feature + regular: {scraper.feature_counter + scraper.regular_counter}')
+    id_tuple = set(scraper.id_list)
+
+    logger.debug(f'All processed id (id_list): {len(scraper.id_list)} | All unique id (id_tuple): {len(id_tuple)}')
+    id_counter_tuple = set(scraper.id_list_counter)
+    logger.debug(
+        f'id through counter (id_counter_list): {len(scraper.id_list_counter)} | All unique id through counter (id_counter_tuple): {len(id_counter_tuple)}')
 

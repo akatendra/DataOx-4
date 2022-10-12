@@ -11,6 +11,8 @@ page_counter = 0
 feature_counter = 0
 regular_counter = 0
 BASE = 'https://www.kijiji.ca'
+id_list = []
+id_list_counter = []
 # End Global variables
 
 # Set up logging
@@ -343,6 +345,7 @@ def parse_html(html):
         f'Number of item_ids are already exist in database: {len(data_listing_id_from_db)}')
     for item in items:
         data_listing_id = int(item['data-listing-id'])
+        id_list.append(data_listing_id)
         logger.debug('###############################################')
         logger.debug(f'Detected data_listing_id:  {data_listing_id}')
         # Working with a title.
@@ -362,6 +365,7 @@ def parse_html(html):
                     f'ERROR!!! Different items with same id: {data_listing_id}')
         else:
             counter += 1
+            id_list_counter.append(data_listing_id)
             logger.debug(f'counter: {counter}')
             logger.debug(
                 f'Detected on page {page_number} data_listing_id is taken in work: {data_listing_id}')
